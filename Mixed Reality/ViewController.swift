@@ -20,7 +20,6 @@ class ViewController: UIViewController {
         sceneView.debugOptions = ARSCNDebugOptions.showWorldOrigin
         sceneView.showsStatistics = true
         setupLighting()
-        addSphere()
         addTapGestureToSceneView()
     }
     
@@ -40,12 +39,12 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    func addSphere() {
+    func addSphere(x: Float = 0, y: Float = 0, z: Float = -0.2) {
         let sphere = SCNSphere(radius: 0.1)
         
         let sphereNode = SCNNode()
         sphereNode.geometry = sphere
-        sphereNode.position = SCNVector3(0, 0, -0.2)
+        sphereNode.position = SCNVector3(x, y, z)
         
         sceneView.scene.rootNode.addChildNode(sphereNode)
     }
@@ -63,8 +62,21 @@ class ViewController: UIViewController {
     @objc func didTap(withGestureRecognizer recognizer: UIGestureRecognizer) {
         let tapLocation = recognizer.location(in: sceneView)
         let hitTestResults = sceneView.hitTest(tapLocation)
-        guard let node = hitTestResults.first?.node else {return}
+        guard let node = hitTestResults.first?.node else {
+            let hitTestResultWithFeaturePoints = sceneView.hitTest(tapLocation, types: .featurePoint)
+            if let hitTestResultWithFeaturePoints = hitTestResultWithFeaturePoints.first {
+                let translation = hitTestResultWithFeaturePoints.worldTransform.translation
+                addSphere(x: translation.x, y: translation.y, z: translation.z)
+            }
+            return
+        }
         node.removeFromParentNode()
     }
 }
 
+extension float4x4 {
+    var translation: float3 {
+        let translation = self.columns.3
+        return float3(translation.x, translation.y, translation.z)
+    }
+}
