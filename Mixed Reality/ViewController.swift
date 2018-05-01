@@ -12,7 +12,7 @@ import ARKit
 import AVFoundation
 import Vision
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     var boxNode: SCNNode?
     @IBOutlet weak var sceneView: ARSCNView!
     
@@ -30,6 +30,9 @@ class ViewController: UIViewController {
         return session
     }()
     
+    private let visionSequenceHandler = VNSequenceRequestHandler()
+    private var lastObservation = VNDetectedObjectObservation? // to be fed back to Vision handler
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -40,6 +43,7 @@ class ViewController: UIViewController {
         
         // adding camera input
         sceneView?.layer.addSublayer(self.cameraLayer)
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -83,6 +87,27 @@ class ViewController: UIViewController {
     func addTapGestureToSceneView() {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ViewController.didTap(withGestureRecognizer:)))
         sceneView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func captureOutput(_ output: AVCaptureOutput, didDrop sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        guard
+            let pixelBuffer: CVPixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
+            let lastObservation = self.lastObservation
+        else {
+            fatalError("Could not get CVPixel Buffer or last observation")
+            return
+        }
+        
+        let request = VNTrackObjectRequest(detectedObjectObservation: lastObservation, completionHandler: nil)
+        
+        // high accuracy. Slower but better
+        request.trackingLevel = .accurate
+        
+        do {
+            try self.visionSequenceHandler.perform([request], on: pixelBuffer)
+        } catch {
+            print("Capture Output Throew Error: \(error)")
+        }
     }
     
     @objc func didTap(withGestureRecognizer recognizer: UIGestureRecognizer) {
