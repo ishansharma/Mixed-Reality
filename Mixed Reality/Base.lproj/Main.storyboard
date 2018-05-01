@@ -1,24 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="NF6-ch-VHf">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
+        <scene sceneID="E7a-Km-Mhy">
+            <objects>
+                <viewController id="NF6-ch-VHf" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="CHd-hF-aYB">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="QZh-mK-4ww">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tM0-oO-MEl">
+                                <rect key="frame" x="20" y="30" width="335" height="627"/>
+                                <state key="normal" title="Start AR Session"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="presentation" modalTransitionStyle="coverVertical" id="TKK-Ee-yTm"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="QZh-mK-4ww" firstAttribute="leading" secondItem="v75-GL-vh6" secondAttribute="leading" id="26a-R4-Sst"/>
+                            <constraint firstItem="tM0-oO-MEl" firstAttribute="top" secondItem="v75-GL-vh6" secondAttribute="top" constant="10" id="BpF-mI-q53"/>
+                            <constraint firstItem="QZh-mK-4ww" firstAttribute="top" secondItem="v75-GL-vh6" secondAttribute="top" id="EDE-LZ-gMj"/>
+                            <constraint firstItem="tM0-oO-MEl" firstAttribute="leading" secondItem="v75-GL-vh6" secondAttribute="leading" constant="20" id="Hv5-xo-RCW"/>
+                            <constraint firstItem="tM0-oO-MEl" firstAttribute="centerY" secondItem="QZh-mK-4ww" secondAttribute="centerY" id="LXu-RK-tCK"/>
+                            <constraint firstItem="QZh-mK-4ww" firstAttribute="centerX" secondItem="CHd-hF-aYB" secondAttribute="centerX" id="Yqc-st-TFt"/>
+                            <constraint firstItem="QZh-mK-4ww" firstAttribute="bottom" secondItem="v75-GL-vh6" secondAttribute="bottom" id="ahB-jp-u4y"/>
+                            <constraint firstItem="tM0-oO-MEl" firstAttribute="centerX" secondItem="QZh-mK-4ww" secondAttribute="centerX" id="ybg-zG-Flt"/>
+                            <constraint firstItem="QZh-mK-4ww" firstAttribute="trailing" secondItem="v75-GL-vh6" secondAttribute="trailing" id="yoP-bi-Wd6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="v75-GL-vh6"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qeA-iu-aff" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-847.20000000000005" y="29.23538230884558"/>
+        </scene>
+        <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Mixed_Reality" customModuleProvider="target" sceneMemberID="viewController">
-                    <arscnView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="LtX-BO-Lb8">
+                    <stackView key="view" opaque="NO" contentMode="scaleToFill" axis="vertical" id="sfV-Jo-yWN">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                    </arscnView>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bY8-rV-g1g">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rJt-ou-0Cy">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4S-yy-rf1">
+                                                <rect key="frame" x="14" y="10" width="34" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <state key="normal" title="Back"/>
+                                                <connections>
+                                                    <segue destination="NF6-ch-VHf" kind="show" id="qip-u6-0EC"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </view>
+                                    <arscnView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ufY-gW-i6W">
+                                        <rect key="frame" x="0.0" y="50" width="375" height="617"/>
+                                    </arscnView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="rJt-ou-0Cy" secondAttribute="bottom" constant="617" id="T9k-g8-aSG"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="fNk-kf-Ls5"/>
+                    </stackView>
                     <connections>
-                        <outlet property="sceneView" destination="LtX-BO-Lb8" id="z96-5d-XA2"/>
+                        <outlet property="sceneView" destination="ufY-gW-i6W" id="che-ml-ru2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

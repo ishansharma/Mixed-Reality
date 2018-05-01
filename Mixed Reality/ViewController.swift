@@ -12,7 +12,7 @@ import ARKit
 
 class ViewController: UIViewController {
     var boxNode: SCNNode?
-    @IBOutlet var sceneView: ARSCNView!
+    @IBOutlet weak var sceneView: ARSCNView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
