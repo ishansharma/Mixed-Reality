@@ -9,10 +9,26 @@
 import UIKit
 import SceneKit
 import ARKit
+import AVFoundation
+import Vision
 
 class ViewController: UIViewController {
     var boxNode: SCNNode?
     @IBOutlet weak var sceneView: ARSCNView!
+    
+    private lazy var cameraLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+    private lazy var captureSession: AVCaptureSession = {
+        let session = AVCaptureSession()
+        session.sessionPreset = AVCaptureSession.Preset.photo
+        guard
+            let backCamera = AVCaptureDevice.default(.builtInWideAngleCamera, for: .video, position: .back),
+            let input = try? AVCaptureDeviceInput(device: backCamera)
+        else {
+            return session
+        }
+        session.addInput(input)
+        return session
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,7 +36,17 @@ class ViewController: UIViewController {
         sceneView.debugOptions = ARSCNDebugOptions.showWorldOrigin
         sceneView.showsStatistics = true
         setupLighting()
-        addTapGestureToSceneView()
+//        addTapGestureToSceneView()
+        
+        // adding camera input
+        sceneView?.layer.addSublayer(self.cameraLayer)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // ensure that layer is of correct size
+        self.cameraLayer.frame = self.sceneView?.bounds ?? .zero
     }
     
     override func viewWillAppear(_ animated: Bool) {
