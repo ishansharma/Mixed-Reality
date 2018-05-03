@@ -15,6 +15,20 @@ import Vision
 class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     var boxNode: SCNNode?
     @IBOutlet weak var sceneView: ARSCNView!
+    @IBOutlet weak var highlightView: UIView? {
+        didSet {
+            self.highlightView?.layer.borderColor = UIColor.red.cgColor
+            self.highlightView?.layer.borderWidth = 4
+            self.highlightView?.backgroundColor = .clear
+        }
+    }
+    @IBAction private func userTapped(_ sender: UITapGestureRecognizer) {
+        // get center of the tap
+        self.highlightView?.frame.size = CGSize(width: 120, height: 120)
+        self.highlightView?.center = sender.location(in: self.view)
+        
+        print("Set center to \(self.highlightView?.center)" )
+    }
     
     private lazy var cameraLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
     private lazy var captureSession: AVCaptureSession = {
@@ -31,7 +45,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
     }()
     
     private let visionSequenceHandler = VNSequenceRequestHandler()
-    private var lastObservation = VNDetectedObjectObservation? // to be fed back to Vision handler
+    private var lastObservation: VNDetectedObjectObservation? // to be fed back to Vision handler
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,7 +109,6 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
             let lastObservation = self.lastObservation
         else {
             fatalError("Could not get CVPixel Buffer or last observation")
-            return
         }
         
         let request = VNTrackObjectRequest(detectedObjectObservation: lastObservation, completionHandler: nil)
@@ -106,7 +119,7 @@ class ViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDele
         do {
             try self.visionSequenceHandler.perform([request], on: pixelBuffer)
         } catch {
-            print("Capture Output Throew Error: \(error)")
+            print("Capture Output Threw Error: \(error)")
         }
     }
     

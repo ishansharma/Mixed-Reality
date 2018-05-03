@@ -15,6 +15,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		86151291209B6B2C00B4AF43 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		86151292209B6B3A00B4AF43 /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 		8635EAA2207FA5CF00481FCA /* Mixed Reality.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Mixed Reality.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8635EAA5207FA5CF00481FCA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8635EAA7207FA5CF00481FCA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +40,8 @@
 		8635EA99207FA5CF00481FCA = {
 			isa = PBXGroup;
 			children = (
+				86151292209B6B3A00B4AF43 /* LICENSE.md */,
+				86151291209B6B2C00B4AF43 /* README.md */,
 				8635EAA4207FA5CF00481FCA /* Mixed Reality */,
 				8635EAA3207FA5CF00481FCA /* Products */,
 			);
